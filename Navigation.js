@@ -7,11 +7,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // Screens
 import HomeScreen from "./Screens/HomeSceen";
 import LocationSceen from "./Screens/LocationsScreen";
 import PriceScreen from "./Screens/PriceScreen";
+import FoodScreen from "./Screens/FoodScreen";
+import FoodDetail from "./Screens/FoodDetail";
 
 // Stack Navigator Locate -> Price
 const LocateStackNavigator = createStackNavigator()
@@ -20,12 +23,12 @@ function MyStack() {
     return (
         <LocateStackNavigator.Navigator>
             <LocateStackNavigator.Screen
-                name="Lugares"
-                component={LocationSceen}
+                name="Comida"
+                component={FoodScreen}
             />
             <LocateStackNavigator.Screen
-                name="Precios"
-                component={PriceScreen}
+                name="Detalles"
+                component={FoodDetail}
             />
         </LocateStackNavigator.Navigator>
     )
@@ -53,7 +56,7 @@ function MyTabs() {
                     headerShown: false
                  }}
             />
-            <Tab.Screen 
+            {/* <Tab.Screen 
                 name="Location" 
                 component={MyStack}
                 options={{ 
@@ -63,18 +66,18 @@ function MyTabs() {
                     ),
                     headerShown: false
                  }}
-            />
-            {/* <Tab.Screen
-                name="Precios"
-                component={PriceScreen}
-                options={{ 
-                    tabBarLabel: "Precios",
-                    tabBarIcon: ({ color, size }) => (
-                        <Entypo name="price-tag" size={size} color={color} />
-                    ),
-                    headerShown:false
-                 }}
             /> */}
+            <Tab.Screen 
+                name="Platos"
+                component={MyStack}    
+                options={{ 
+                    tabBarLabel: "Platos",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="fast-food" size={size} color={color} />
+                    ),
+                    headerShown: false
+                 }}
+            />
             
         </Tab.Navigator>
     )
