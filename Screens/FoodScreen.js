@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, ScrollView, Image, Modal, Pressable } from "react-native";
+import ModalDetail from "../components/ModalDetails";
 
 const FoodScreen = () => {
 
+    const Content = {title: "Platos", message: "plato"}
     const comida = [
         {
             id: 1,
@@ -43,18 +45,26 @@ const FoodScreen = () => {
     
     const [selectedItem, setSelectedItem] = useState(null); // Estado para almacenar el elemento seleccionado
 
+    const openModal = (item) => {
+        setSelectedItem(item)
+    }
+
+    const closeModal = () => {
+        setSelectedItem(null)
+    }
+
     const renderItem = ({ item }) => (
-        <TouchableOpacity style={styles.item} onPress={() => setSelectedItem(item)}>
+        <TouchableOpacity style={styles.item} onPress={() => openModal(item)}>
             <Text style={styles.text}>{item.name}</Text>
             <Image style={styles.image} source={{ uri: item.img }} />
         </TouchableOpacity>
     );
 
     return (
-        <View>
-                <Text style={styles.header}>Platos</Text>
+        <View style={styles.body}>
+                <Text style={styles.header}>{Content.title}</Text>
 
-                {/* Listar aquí */}
+                {/* Lista */}
                 <FlatList
                     data={comida}
                     renderItem={renderItem}
@@ -62,43 +72,16 @@ const FoodScreen = () => {
                 />
 
             {/* Modal para mostrar detalles */}
-            <Modal
-                animationType="slide"
-                transparent={false}
-                visible={!!selectedItem}
-                onRequestClose={() => setSelectedItem(null)}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        {selectedItem && (
-                            <>
-                                <Text style={styles.modalText}>{selectedItem.name}</Text>
-                                <Image style={styles.modalImage} source={{ uri: selectedItem.img }} />
-                                <Text style={styles.modalDetail}>{selectedItem.detalle}</Text>
-                                <Text style={styles.modalText}>Precio: S/. {selectedItem.precio}</Text>
-                                <Pressable
-                                    style={[styles.button2, styles.buttonClose]}
-                                    onPress={() => alert(`El monto del plato es: S/. ${selectedItem.precio}`)}
-                                >
-                                    <Text style={styles.textStyle}>Comprar</Text>
-                                </Pressable>
-
-                                <Pressable
-                                    style={[styles.button2, styles.buttonClose]}
-                                    onPress={() => setSelectedItem(null)}
-                                >
-                                    <Text style={styles.textStyle}>Cerrar</Text>
-                                </Pressable>
-                            </>
-                        )}
-                    </View>
-                </View>
-            </Modal>
+            <ModalDetail selectedItem={selectedItem} closeModal={closeModal} message={Content.message}/>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
+    body: {
+        paddingTop:40,
+        paddingBottom:60
+    },
     item: {
         marginVertical: 5,
         marginHorizontal: 10,
@@ -122,60 +105,6 @@ const styles = StyleSheet.create({
         height: 200,
         resizeMode: "cover"
     },
-    modalImage: {
-        width: 200,
-        height: 200,
-        objectFit: "cover"
-    },
-    button2: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-        marginVertical: 10,
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 22,
-    },
-    modalView: {
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    buttonOpen: {
-        backgroundColor: '#F194FF',
-    },
-    buttonClose: {
-        backgroundColor: '#2196F3',
-    },
-    textStyle: {
-        color: 'white',
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
-        fontSize: 20,
-        fontWeight: 'bold'
-    },
-    modalDetail: {
-        marginVertical: 15,
-        fontSize: 20,
-        fontWeight: 'normal',
-        textAlign: 'justify'
-    }
 });
 
 export default FoodScreen;
