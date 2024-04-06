@@ -45,19 +45,30 @@ const LocationScreen = () => {
     const [locations, setLocations] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
 
-    const fetchLocations = async () => {
-        try {
-            const response = await fetch("http://172.21.192.1:8080/locations/"); //cambiar por la Ips
-            const data = await response.json();
-            setLocations(data);
-        } catch (error) {
-            console.error("Error fetching locationsxd:", error);
-        }
-    };
+    // const fetchLocations = async () => {
+    //     try {
+    //         const response = await fetch("http://192.168.137.48:8080/locations/"); //cambiar por la Ips
+    //         const data = await response.json();
+    //         setLocations(data);
+    //     } catch (error) {
+    //         console.error("Error fetching locationsxd:", error);
+    //     }
+    // };
 
     // Llamar a la función de obtener datos cuando el componente se monta
+
+    // (función)(ejetuta la función) ()()
     useEffect(() => {
-        fetchLocations();
+        (async () => {
+            try {
+                const response = await fetch("http://192.168.137.48:8080/locations/"); //cambiar por la Ips
+                const data = await response.json();
+                setLocations(data);
+            } catch (error) {
+                console.error("Error fetching locationsxd:", error);
+            }
+        }
+        )()
     }, []);   
     useEffect(() => {
         console.log(locations);
