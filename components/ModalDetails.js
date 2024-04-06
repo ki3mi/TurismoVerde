@@ -14,14 +14,14 @@ const ModalDetail = ({ selectedItem, closeModal, message }) => {
                     <View style={styles.modalView}>
                         {selectedItem && (
                             <>
-                                <Text style={styles.modalText}>{selectedItem.name}</Text>
+                                <Text style={styles.modalText}>{selectedItem.title}</Text>
                                 <Image style={styles.modalImage} source={{ uri: selectedItem.img }} />
-                                <Text style={styles.modalDetail}>{selectedItem.detalle}</Text>
-                                <Text style={styles.modalText}>S/. {selectedItem.precio}</Text>
+                                <Text style={styles.modalDetail}>{selectedItem.description}</Text>
+                                <Text style={styles.modalText}>S/. {selectedItem.price}</Text>
                                 <View style={styles.buttonContainer}>
                                     <Pressable
                                         style={StyleSheet.compose(styles.button, styles.buttonPay)}
-                                        onPress={() => alert(`El moto del ${message} es: S/. ${selectedItem.precio}`)}
+                                        onPress={() => alert(`El moto del ${message} es: S/. ${selectedItem.price}`)}
                                     >
                                         <Text style={styles.textStyle}>Comprar</Text>
                                     </Pressable>

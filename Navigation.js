@@ -67,7 +67,7 @@ function MyTabs() {
                     headerShown: false
                 }}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="Platos"
                 component={FoodScreen}
                 options={{
@@ -77,7 +77,7 @@ function MyTabs() {
                     ),
                     headerShown: false
                 }}
-            />
+            /> */}
 
         </Tab.Navigator>
     )
